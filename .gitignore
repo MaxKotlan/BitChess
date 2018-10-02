@@ -50,6 +50,8 @@ test/test_runner
 **/divis
 
 .build/
+build/*
+!build/.gitkeep
 
 # User-specific stuff:
 .idea/**/workspace.xml
