@@ -1,4 +1,4 @@
-#include "divisible.h"
+#include "bitchess.h"
 
 int main(int argc, const char *argv[]) {
     int denominator = 2;

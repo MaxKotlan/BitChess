@@ -2,7 +2,7 @@
 // Created by Konstantin Gredeskoul on 5/14/17.
 //
 
-#include "divisible.h"
+#include "bitchess.h"
 
 int Divisible::modulo(const int number)
 {
