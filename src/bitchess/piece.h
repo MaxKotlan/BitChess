@@ -24,7 +24,6 @@ class piece {
 	
 	piece(code t) : _code(t) {};
 	piece(uint8_t t) : _code(static_cast<piece::code>(t)) {};
-	piece(uint32_t t) : _code(static_cast<piece::code>(t)) {};
 
 	static std::string getHumanReadable(piece::code piece) {
 		switch (piece) {
@@ -45,6 +44,7 @@ class piece {
 	}
 
 	operator uint32_t()    { return _code; };
+	operator uint16_t()    { return _code; };
 	operator uint8_t()     { return _code; };
 	operator piece::code() { return _code; };
 

@@ -4,7 +4,7 @@ project(test_runner)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
-set(SOURCE_FILES main.cpp test-board.cpp tests.h test-coordinate.cpp)
+set(SOURCE_FILES main.cpp test-board.cpp tests.h test-coordinate.cpp test-move.cpp)
 
 include_directories(${BITCHESS_INCLUDE_DIR})
 

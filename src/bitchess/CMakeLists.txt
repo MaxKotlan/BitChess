@@ -3,7 +3,7 @@ project(bitchess C CXX)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-set(SOURCE_FILES bitchess.h board.h coordinate.h piece.h board.cpp coordinate.cpp)
+set(SOURCE_FILES bitchess.h board.h coordinate.h move.h piece.h board.cpp coordinate.cpp move.cpp)
 
 add_library(bitchess SHARED STATIC ${SOURCE_FILES})
 

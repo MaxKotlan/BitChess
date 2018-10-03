@@ -11,3 +11,12 @@ void board::coordinate::printBinary() {
 void board::coordinate::printHex() {
 	std::cout << std::hex << (int)cord << std::endl;
 };
+
+
+bool board::coordinate::operator == (const board::coordinate& rhs) {
+	return (cord == rhs.cord);
+}
+
+bool board::coordinate::operator != (const board::coordinate& rhs) {
+	return !(*this == rhs);
+}

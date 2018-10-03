@@ -14,12 +14,17 @@ public:
 	typedef int8_t col;
 
 	class coordinate;
+	class move;
+
 
 	board();
 
 	piece getPiece(coordinate c);
 
 	void addPiece(piece p, coordinate c);
+	void movePiece(coordinate c, coordinate d);
+	void removePiece(coordinate c);
+	void promotePiece(piece p, coordinate c);
 
 	void printRaw();
 	void printUTF();
@@ -28,8 +33,12 @@ public:
 	void random();
 	void print();
 
+	bool board::operator == (const board& rhs);
+	bool board::operator != (const board& rhs);
+
 private:
 	uint32_t _row[8];
 };
 
 #include "coordinate.h"
+#include "move.h"

@@ -56,9 +56,14 @@ public:
 	/*print hex of integer*/
 	void printHex();
 
+	operator uint8_t() { return uint8_t(cord); };
+
 	//friend coordinate operator + (const coordinate& lhs, const coordinate& rhs);
 	//friend coordinate operator - (const coordinate& lhs, const coordinate& rhs);
 	//friend std::ostream & operator << (std::ostream &out, const coordinate &c);
+	bool operator == (const coordinate& rhs);
+	bool operator != (const coordinate& rhs);
+
 
 	uint8_t cord;
 };

@@ -3,3 +3,4 @@
 
 void testboard();
 void testcoordinate();
+void testmove();

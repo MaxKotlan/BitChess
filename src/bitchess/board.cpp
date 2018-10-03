@@ -20,6 +20,20 @@ void board::addPiece(piece p, coordinate c){
 	_row[c.getRow()] += uint32_t(p) << c.getCol() * piece::code_bits;
 }
 
+void board::movePiece(coordinate from, coordinate to) {
+	addPiece(getPiece(from), to);
+	removePiece(from);
+}
+
+void board::removePiece(coordinate c) {
+	_row[c.getRow()] -= uint32_t(getPiece(c)) << c.getCol() * piece::code_bits;
+}
+
+void board::promotePiece(piece promotion, coordinate c) {
+	removePiece(c);
+	addPiece(promotion, c);
+}
+
 void board::clear() {
 	for (board::row r = 0; r < 8; r++)
 		_row[r] = 0;
@@ -38,7 +52,7 @@ void board::printRaw() {
 }
 
 void board::printUTF() {
-	for (board::row r = 8; r >= 0; r--) {
+	for (board::row r = 7; r >= 0; r--) {
 		for (board::col c = 0; c < 8; c++) {
 			std::wcout << "[" <<
 				piece::getUTF8(
@@ -53,7 +67,7 @@ void board::printUTF() {
 }
 
 void board::print() {
-	for (board::row r = 8; r >= 0; r--) {
+	for (board::row r = 7; r >= 0; r--) {
 		for (board::col c = 0; c < 8; c++) {
 			std::cout << "[" <<
 				piece::getHumanReadable(
@@ -70,4 +84,14 @@ void board::print() {
 
 piece board::getPiece(coordinate c) {
 	return ( _row[c.getRow()] >> c.getCol() * piece::code_bits) % 16 ;
+}
+
+bool board::operator == (const board& rhs) {
+	for (board::row r = 0; r < 8; r++)
+		if (_row[r] != rhs._row[r]) return false;
+	return true;
+}
+
+bool board::operator != (const board& rhs) {
+	return !(*this == rhs);
 }

@@ -10,6 +10,13 @@ void testboard() {
 		assert(sizeof(b) == sizeof( uint32_t) *8);
 		assert(sizeof(b) == 32);
 	}
+	std::cout << "------Testing Board logical operators ------" << std::endl;
+	{
+		board b, c;
+		assert(c == b);
+		c.addPiece(piece::code::b_king, "d4");
+		assert(c != b);
+	}
 	std::cout << "------Testing Get Piece Function ------" << std::endl;
 	{
 		board b;		
