@@ -10,8 +10,8 @@ add_subdirectory(bitchess)
 include_directories(include)
 include_directories(bitchess)
 
-add_executable(divis ${SOURCE_FILES})
-target_link_libraries(divis bitchess)
+add_executable(bchess ${SOURCE_FILES})
+target_link_libraries(bchess bitchess)
 
-install(TARGETS divis DESTINATION bin)
+install(TARGETS bchess DESTINATION bin)
 

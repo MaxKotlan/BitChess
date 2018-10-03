@@ -1,11 +1,13 @@
-#include "bitchess.h"
+﻿#include "bitchess.h"
 
 int main(int argc, const char *argv[]) {
 	
 	board b;
 	b.print();
 
-	//std::cout << piece::getHumanReadable(b.getPiece("a1")).c_str() << std::endl;
+	b.addPiece(piece::w_quee, "d4");
+	b.addPiece(piece::w_pawn, "d3");
+	b.print();
 
 	std::cin.get();
     return 0;

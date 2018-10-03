@@ -10,8 +10,8 @@ using namespace std;
 class board {
 public:
 
-	typedef uint8_t row;
-	typedef uint8_t col;
+	typedef int8_t row;
+	typedef int8_t col;
 
 	class coordinate;
 
@@ -20,6 +20,9 @@ public:
 	piece getPiece(coordinate c);
 
 	void addPiece(piece p, coordinate c);
+
+	void printRaw();
+	void printUTF();
 
 	void clear();
 	void random();

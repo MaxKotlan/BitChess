@@ -9,38 +9,56 @@
 
 class board::coordinate {
 public:
-	typedef uint8_t raw_coordinate;
-
-	coordinate() : c(0) {};
-	coordinate(uint8_t c) : c(c) {};
+	coordinate() : cord(0) {};
+	coordinate(uint8_t c) : cord(c) {};
 	coordinate(const char c[3]) { charToCord(c); };
 
 	/*converts character array (3 bytes) into integer, 1 byte*/
-	void inline charToCord(const char c[3]){ c = 0; c += (c[0] - 'a') + 8 * (c[1] - '1'); };
+	uint8_t charToCord(const char c[3]) {
+		cord = 0;
+		cord += ((uint8_t)(c[0] - 'a')) + 8 * (uint8_t)(c[1] - '1');
+		return cord;
+	};
 
 	/*return if coordinate is valid*/
-	bool inline isValid() { return c < 64; };
+	bool inline isValid() { return cord < 64; };
 
 	/*for testing convert integer into character coordinates.*/
-	void toChar(char h[3]) const {
-		h[0] = (c % 8) - 'a';
-		h[1] = (c / 8) + '1';
-		h[2] = '\0';
+	char* toChar(char c[3]) const {
+		c[0] = (cord % 8) + 'a';
+		c[1] = (cord / 8) + '1';
+		c[2] = '\0';
+		return c;
 	}
 
-	row inline getRow() {
-		return ((c / 7) - 1);
-	};
+	/*Returns True if coordinate is adjacent to the left edge of the board*/
+	bool isLeftEdge() {
+		return (cord + 1) % 8 == 0;
+	}
 
-	col inline getCol() {
-		return ((c + 1) % 8);
-	};
+	/*Returns True if coordinate is adjacent to the right edge of the board*/
+	bool isRightEdge() {
+		return (cord) % 8 == 0;
+	}
 
-	void printBinary(); /*print integer in binary*/
-	void printHex();  	/*print integer in hexadecimal*/
+	board::row getRow() {
+		return (cord + 1) / 8;
+	}
 
-	bool operator==(board::coordinate rhs);
+	board::col getCol() {
+		return (cord) % 8;
+	}
 
 
-	raw_coordinate c;
+	/*print binary of integer*/
+	void printBinary();
+
+	/*print hex of integer*/
+	void printHex();
+
+	//friend coordinate operator + (const coordinate& lhs, const coordinate& rhs);
+	//friend coordinate operator - (const coordinate& lhs, const coordinate& rhs);
+	//friend std::ostream & operator << (std::ostream &out, const coordinate &c);
+
+	uint8_t cord;
 };

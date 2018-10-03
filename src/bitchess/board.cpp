@@ -16,6 +16,10 @@ board::board() {
 	_row[0] = 0x42365324;
 }
 
+void board::addPiece(piece p, coordinate c){
+	_row[c.getRow()] += uint32_t(p) << c.getCol() * piece::code_bits;
+}
+
 void board::clear() {
 	for (board::row r = 0; r < 8; r++)
 		_row[r] = 0;
@@ -28,14 +32,30 @@ void board::random() {
 			_row[r] +=  rand() % 0xC << c ;
 }
 
-#include <io.h>
-#include <fcntl.h>
+void board::printRaw() {
+	for (board::row r = 8; r >= 0; r--)
+		std::cout << std::hex << _row[r] << std::endl;
+}
 
-void board::print() {
-	_setmode(_fileno(stdout), _O_WTEXT);
-	for (board::row r = 0; r < 8; r++) {
+void board::printUTF() {
+	for (board::row r = 8; r >= 0; r--) {
 		for (board::col c = 0; c < 8; c++) {
 			std::wcout << "[" <<
+				piece::getUTF8(
+					static_cast<piece::code>(
+					(_row[r] >> c * piece::code_bits) % 16 /*Gets Piece Code from row integer*/
+						)
+				)
+				<< "]";
+		}
+		std::cout << std::endl;
+	}
+}
+
+void board::print() {
+	for (board::row r = 8; r >= 0; r--) {
+		for (board::col c = 0; c < 8; c++) {
+			std::cout << "[" <<
 				piece::getHumanReadable(
 					static_cast<piece::code>(
 						(_row[r] >> c * piece::code_bits) % 16 /*Gets Piece Code from row integer*/
@@ -43,12 +63,11 @@ void board::print() {
 				).c_str()
 				<< "]";
 		}
-		std::wcout << std::endl;
+		std::cout << std::endl;
 	}
 }
 
 
 piece board::getPiece(coordinate c) {
-	return static_cast<piece::code>(
-		_row[c.getRow()] >> c.getCol() * piece::code_bits );
+	return ( _row[c.getRow()] >> c.getCol() * piece::code_bits) % 16 ;
 }
