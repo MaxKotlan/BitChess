@@ -1,7 +1,9 @@
-#include "gtest/gtest.h"
+#include <iostream>
+#include "tests.h"
 
 int main(int argc, char* argv[])
 {
-    ::testing::InitGoogleTest(&argc, argv);
-    RUN_ALL_TESTS();
+	std::cout << "-------------------STARTING TESTS-------------------" << std::endl;
+	testboard();
+	std::cout << "--------------------ENDING TESTS--------------------" << std::endl;
 }
