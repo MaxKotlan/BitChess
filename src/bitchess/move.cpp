@@ -11,10 +11,15 @@ board::move::move(piece p, coordinate from, coordinate to) : _data(0) {
 };
 
 
-board::coordinate board::move::getFrom(){ 
+board::coordinate board::move::getFrom() const{ 
 	return ((_data >> 4) % 64); 
 };
 
-board::coordinate board::move::getTo(){ 
+board::coordinate board::move::getTo() const{ 
 	return ((_data >> 10) % 64); 
 };
+
+std::ostream& operator<< (std::ostream& stream, const board::move& out) {
+	stream << "[" << piece::getHumanReadable(out.getPiece()).c_str() << ", " << out.getFrom().getDisplayCoordinates().c_str() << ", " << out.getTo().getDisplayCoordinates().c_str() << "]";
+	return stream;
+}

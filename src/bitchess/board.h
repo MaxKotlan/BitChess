@@ -2,6 +2,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 
 #include "piece.h"
 
@@ -29,15 +30,19 @@ public:
 	void printRaw();
 	void printUTF();
 
+	void generateValidMoves();
+	void printValidMoves();
+
 	void clear();
 	void random();
 	void print();
 
-	bool board::operator == (const board& rhs);
-	bool board::operator != (const board& rhs);
+	bool operator == (const board& rhs);
+	bool operator != (const board& rhs);
 
 private:
 	uint32_t _row[8];
+	std::vector<move> _validmoves;
 };
 
 #include "coordinate.h"

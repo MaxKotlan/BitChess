@@ -86,12 +86,37 @@ piece board::getPiece(coordinate c) {
 	return ( _row[c.getRow()] >> c.getCol() * piece::code_bits) % 16 ;
 }
 
-bool board::operator == (const board& rhs) {
+bool board::operator==(const board& rhs) {
 	for (board::row r = 0; r < 8; r++)
 		if (_row[r] != rhs._row[r]) return false;
 	return true;
 }
 
-bool board::operator != (const board& rhs) {
+bool board::operator!=(const board& rhs) {
 	return !(*this == rhs);
+}
+
+void board::printValidMoves() {
+	for (auto it = _validmoves.begin(); it != _validmoves.end(); it++)
+		std::cout << *it << std::endl;
+}
+
+void board::generateValidMoves() {
+	for (auto c = 0; c < 64; c++) {
+		piece p = getPiece(c);
+		switch (piece::code(p))
+		{
+			case piece::code::w_pawn:
+				if (coordinate(c).getRow() == 1)
+					_validmoves.push_back(move(piece::code::w_pawn, c, c + 16));
+				_validmoves.push_back(move(piece::code::w_pawn, c, c+8));
+			break;
+			case piece::code::w_bish:
+
+				break;
+
+		default:
+			break;
+		}
+	}
 }

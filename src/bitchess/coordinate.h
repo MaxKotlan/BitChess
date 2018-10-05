@@ -31,6 +31,8 @@ public:
 		return c;
 	}
 
+	std::string getDisplayCoordinates();
+
 	/*Returns True if coordinate is adjacent to the left edge of the board*/
 	bool isLeftEdge() {
 		return (cord + 1) % 8 == 0;
