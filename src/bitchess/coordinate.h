@@ -44,7 +44,7 @@ public:
 	}
 
 	board::row getRow() {
-		return (cord + 1) / 8;
+		return (cord) / 8;
 	}
 
 	board::col getCol() {

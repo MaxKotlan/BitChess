@@ -5,22 +5,23 @@
 int main(int argc, const char *argv[]) {
 	
 	board b;
-	b.print();
+	//b.clear();
+	//b.addPiece(piece::code::w_knig, "h4");
+	for (int k = 1; k < 7; k++) {
+		for (int i = 0; i < 64; i++) {
+			b.clear();
+			b.addPiece(k, i);
 
-	b.generateValidMoves();
-	b.printValidMoves();
+			//b.print();
 
-	board delta;
-	delta.clear();
-	for (uint8_t c = 0; c < 64; c++) {
-		piece p = b.getPiece(c);
-		if (p == piece::code::w_pawn)
-			delta.addPiece(piece::code::w_pawn, c + 8);
+			b.generateValidMoves();
+			//b.printValidMoves();
+			//b.printMoveMap();
+			//std::cout << i << std::endl;
+
+		}
 	}
-	delta.print();
-
-	std::cout << "VECTOR: " << sizeof(std::vector<uint8_t>) << std::endl;
-	std::cout << "STACK : " << sizeof(std::stack<uint8_t>) << std::endl;
+	std::cout << "Total Legal Moves: " << b.validMoveSize() << std::endl;
 
 
 	std::cin.get();

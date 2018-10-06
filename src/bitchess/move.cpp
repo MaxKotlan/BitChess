@@ -20,6 +20,6 @@ board::coordinate board::move::getTo() const{
 };
 
 std::ostream& operator<< (std::ostream& stream, const board::move& out) {
-	stream << "[" << piece::getHumanReadable(out.getPiece()).c_str() << ", " << out.getFrom().getDisplayCoordinates().c_str() << ", " << out.getTo().getDisplayCoordinates().c_str() << "]";
+	stream << std::hex << "0x" << out._data << " [" << piece::getHumanReadable(out.getPiece()).c_str() << ", " << out.getFrom().getDisplayCoordinates().c_str() << ", " << out.getTo().getDisplayCoordinates().c_str() << "]";
 	return stream;
 }
