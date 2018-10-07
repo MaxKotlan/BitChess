@@ -31,7 +31,7 @@ std::ostream& operator<< (std::ostream& stream, const board::move& out) {
 
 bool board::move::isLegal() {
 	auto result = std::find(_legalmoves.begin(), _legalmoves.end(), *this);
-	return (result == _legalmoves.end());
+	return (result != _legalmoves.end());
 }
 
 
