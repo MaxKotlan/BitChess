@@ -46,6 +46,9 @@ public:
 	bool operator == (const board& rhs);
 	bool operator != (const board& rhs);
 
+	std::vector<move> _validmoves;
+
+
 protected:
 	void generateWhitePawnMoves(coordinate c);
 	void generateKnightMoves(coordinate c);
@@ -56,7 +59,6 @@ protected:
 
 private:
 	uint32_t _row[8];
-	std::vector<move> _validmoves;
 };
 
 #include "coordinate.h"
