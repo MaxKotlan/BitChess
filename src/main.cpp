@@ -15,15 +15,16 @@ int main(int argc, const char *argv[]) {
 	srand(time(nullptr));
 
 	std::cout << "TOTAL LEGAL MOVES: " << k.getTotalLegalMoves() << std::endl;
+	double sample = 64*64*16;
 	double illegal = 0, legal = 0;
 	for (auto t = 0; t < 14; t++) {
-		for (auto i = 0; i < 10000; i++) {
+		for (auto i = 0; i < sample; i++) {
 			k = board::move(rand() % 13 + 1, rand() % 64, rand() % 64);
 			bool legality = k.isLegal();
 			//std::cout << k << "is legal? " << ((legality) ? "true" : "false") << std::endl;
 			if (legality) legal++; else illegal++;
 		}
-		std::cout << "TRIAL " << t <<  ": ILLEGAL: " << illegal << ", " << illegal / 10000 << " | LEGAL" << legal << ", " << legal / 10000 << std::endl;
+		std::cout << "TRIAL " << t <<  ": ILLEGAL: " << illegal << ", " << illegal / sample << " | LEGAL: " << legal << ", " << legal / sample << std::endl;
 		illegal = 0; legal = 0;
 	}
 	std::cin.get();

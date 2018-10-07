@@ -8,6 +8,8 @@
 
 
 std::vector<board::move> board::move::_legalmoves;
+std::vector<board::move> board::move::_legalmoves_sorted;
+
 
 board::move::move(piece p, coordinate from, coordinate to) : _data(0) {
 	_data += uint16_t(p);
@@ -30,8 +32,9 @@ std::ostream& operator<< (std::ostream& stream, const board::move& out) {
 }
 
 bool board::move::isLegal() {
-	auto result = std::find(_legalmoves.begin(), _legalmoves.end(), *this);
-	return (result != _legalmoves.end());
+	//auto result = std::find(_legalmoves.begin(), _legalmoves.end(), *this);
+	//return (result != _legalmoves.end());
+	return std::binary_search(_legalmoves_sorted.begin(), _legalmoves_sorted.end(), *this);
 }
 
 
@@ -52,6 +55,8 @@ void board::move::generateValidMoves() {
 			}
 		}
 	}
+	_legalmoves_sorted = _legalmoves;
+	std::sort(_legalmoves_sorted.begin(), _legalmoves_sorted.end());
 }
 
 void board::move::outputLegalMoves() {
@@ -193,4 +198,35 @@ void board::move::gen_king_moves(piece p, coordinate c) {
 
 bool board::move::operator == (board::move rhs) {
 	return (_data == rhs._data);
+}
+
+bool board::move::operator != (board::move rhs) {
+	return (_data != rhs._data);
+}
+
+/*
+bool board::move::operator < (board::move rhs) {
+	return (_data < rhs._data);
+}
+
+bool board::move::operator > (board::move rhs) {
+	return (_data > rhs._data);
+}
+
+bool board::move::operator <= (board::move rhs) {
+	return (_data <= rhs._data);
+}
+
+bool board::move::operator >= (board::move rhs) {
+	return (_data >= rhs._data);
+}*/
+
+bool operator <(board::move left, board::move right)
+{
+	return left.getRaw() < right.getRaw();
+}
+
+bool operator >(board::move left, board::move right)
+{
+	return left.getRaw() > right.getRaw();
 }

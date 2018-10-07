@@ -25,6 +25,15 @@ public:
 	void visualizeLegalMoves();
 
 	bool operator == (move rhs);
+	bool operator != (move rhs);
+	//bool operator < (move rhs);
+	//bool operator > (move rhs);
+	//bool operator <= (move rhs);
+	//bool operator >= (move rhs);
+
+	friend bool operator <(board::move m, board::move g);
+	friend bool operator >(board::move m, board::move g);
+
 
 	protected:
 
@@ -53,5 +62,6 @@ public:
 	private:
 		uint16_t _data;
 		static std::vector<move> _legalmoves;
+		static std::vector<move> _legalmoves_sorted;
 };
 
