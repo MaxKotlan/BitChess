@@ -32,30 +32,12 @@ public:
 	void printRaw();
 	void printUTF();
 
-	void generateValidMoves();
-
-	void printValidMoves();
-	void printMoveMap();
-	int validMoveSize();
-
-
 	void clear();
 	void random();
 	void print();
 
 	bool operator == (const board& rhs);
 	bool operator != (const board& rhs);
-
-	std::vector<move> _validmoves;
-
-
-protected:
-	void generateWhitePawnMoves(coordinate c);
-	void generateKnightMoves(coordinate c);
-	void generateBishopMoves(coordinate c);
-	void generateRookMoves(coordinate c);
-	void generateQueenMoves(coordinate c);
-	void generateKingMoves(coordinate c);
 
 private:
 	uint32_t _row[8];

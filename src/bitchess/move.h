@@ -28,6 +28,7 @@ public:
 
 	protected:
 
+		/*Add legal moves to list for each type of piece*/
 		void gen_w_pawn_moves(coordinate c);
 		void gen_b_pawn_moves(coordinate c);
 		void gen_knig_moves(piece p, coordinate c);
@@ -36,10 +37,11 @@ public:
 		void gen_quee_moves(piece p, coordinate c);
 		void gen_king_moves(piece p, coordinate c);
 
-
+		/*Generic function used to generate patterns shared by pieces (like diagnal or straight lines)*/
 		void coordinatePattern(piece p, coordinate c, int corddelta, int rowdelta, uint8_t rangeLimit);
 
-		void north(piece p, coordinate c, uint8_t rangeLimit);
+		/*more specific directional functions*/
+		void north(piece p, coordinate c, uint8_t rangeLimit); 
 		void south(piece p, coordinate c, uint8_t rangeLimit);
 		void  east(piece p, coordinate c, uint8_t rangeLimit);
 		void  west(piece p, coordinate c, uint8_t rangeLimit);
