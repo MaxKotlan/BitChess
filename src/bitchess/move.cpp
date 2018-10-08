@@ -5,7 +5,7 @@
 #include "move.h"
 
 #include <algorithm>
-
+#include <fstream>
 
 std::vector<board::move> board::move::_legalmoves;
 std::vector<board::move> board::move::_legalmoves_sorted;
@@ -31,10 +31,14 @@ std::ostream& operator<< (std::ostream& stream, const board::move& out) {
 	return stream;
 }
 
+void board::move::randomLegal() {
+	_data = _legalmoves_sorted[rand() % _legalmoves_sorted.size()]._data;
+}
+
 bool board::move::isLegal() {
 	//auto result = std::find(_legalmoves.begin(), _legalmoves.end(), *this);
 	//return (result != _legalmoves.end());
-	return std::binary_search(_legalmoves_sorted.begin(), _legalmoves_sorted.end(), *this);
+	return std::binary_search(_legalmoves_sorted.begin(), _legalmoves_sorted.end(), *this); /*Use binary search to find if move is legal*/
 }
 
 
@@ -60,8 +64,11 @@ void board::move::generateValidMoves() {
 }
 
 void board::move::outputLegalMoves() {
-	for (auto it = _legalmoves.begin(); it != _legalmoves.end(); it++)
-		std::cout << *it << std::endl;
+	auto ns = _legalmoves.begin();
+	for (auto it = _legalmoves_sorted.begin(); it != _legalmoves_sorted.end(); it++) {
+		std::cout << *it << " | " << *ns << std::endl;
+		ns++;
+	}
 }
 
 uint16_t board::move::getTotalLegalMoves() {
@@ -121,6 +128,12 @@ void board::move::coordinatePattern(piece p, coordinate c, int corddelta, int ro
 		nw = nw + corddelta;
 		count++;
 	}
+}
+
+void board::move::returnLegal(std::vector<board::move>& mov, piece p, board::coordinate c){
+	for (auto it = _legalmoves.begin(); it != _legalmoves.end(); it++)
+		if (it->getFrom() == c && uint8_t(it->getPiece()) == uint8_t(p))
+			mov.push_back(board::move(p, c, it->getTo()));
 }
 
 
@@ -194,6 +207,19 @@ void board::move::gen_king_moves(piece p, coordinate c) {
 	west(p, c, 1);
 	northdiagnals(p, c, 1);
 	southdiagnals(p, c, 1);
+
+	/*Castling*/
+	if (c == "e1" && p == piece::w_king) {
+		coordinatePattern(p, c, +2, 0, 1);
+		coordinatePattern(p, c, -2, 0, 1);
+	}
+	if (c == "e8" && p == piece::b_king) {
+		coordinatePattern(p, c, +2, 0, 1);
+		coordinatePattern(p, c, -2, 0, 1);
+	}
+
+
+
 }
 
 bool board::move::operator == (board::move rhs) {
@@ -204,22 +230,6 @@ bool board::move::operator != (board::move rhs) {
 	return (_data != rhs._data);
 }
 
-/*
-bool board::move::operator < (board::move rhs) {
-	return (_data < rhs._data);
-}
-
-bool board::move::operator > (board::move rhs) {
-	return (_data > rhs._data);
-}
-
-bool board::move::operator <= (board::move rhs) {
-	return (_data <= rhs._data);
-}
-
-bool board::move::operator >= (board::move rhs) {
-	return (_data >= rhs._data);
-}*/
 
 bool operator <(board::move left, board::move right)
 {

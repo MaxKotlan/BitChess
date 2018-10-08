@@ -25,6 +25,12 @@ void board::movePiece(coordinate from, coordinate to) {
 	removePiece(from);
 }
 
+void board::movePiece(board::move m) {
+	addPiece(m.getPiece(), m.getTo());
+	removePiece(m.getFrom());
+}
+
+
 void board::removePiece(coordinate c) {
 	_row[c.getRow()] -= uint32_t(getPiece(c)) << c.getCol() * piece::code_bits;
 }

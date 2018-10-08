@@ -14,6 +14,8 @@ public:
 	coordinate getTo() const;
 	uint16_t getRaw() {return _data;};
 
+	void randomLegal();
+
 	bool isLegal();
 
 	friend std::ostream& operator<< (std::ostream& stream, const board::move& move);
@@ -26,14 +28,11 @@ public:
 
 	bool operator == (move rhs);
 	bool operator != (move rhs);
-	//bool operator < (move rhs);
-	//bool operator > (move rhs);
-	//bool operator <= (move rhs);
-	//bool operator >= (move rhs);
 
 	friend bool operator <(board::move m, board::move g);
 	friend bool operator >(board::move m, board::move g);
 
+	void returnLegal(std::vector<move>& mov, piece p, coordinate c);
 
 	protected:
 

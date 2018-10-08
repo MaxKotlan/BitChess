@@ -9,24 +9,27 @@
 
 int main(int argc, const char *argv[]) {
 	
-	board::move k(piece::w_king, "d4", "d5");
-	k.generateValidMoves();
+	board::move lol(piece::w_pawn, "a2", "d5");
 
-	srand(time(nullptr));
+	lol.generateValidMoves();
+	
+	//lol.outputLegalMoves();
 
-	std::cout << "TOTAL LEGAL MOVES: " << k.getTotalLegalMoves() << std::endl;
-	double sample = 64*64*16;
-	double illegal = 0, legal = 0;
-	for (auto t = 0; t < 14; t++) {
-		for (auto i = 0; i < sample; i++) {
-			k = board::move(rand() % 13 + 1, rand() % 64, rand() % 64);
-			bool legality = k.isLegal();
-			//std::cout << k << "is legal? " << ((legality) ? "true" : "false") << std::endl;
-			if (legality) legal++; else illegal++;
-		}
-		std::cout << "TRIAL " << t <<  ": ILLEGAL: " << illegal << ", " << illegal / sample << " | LEGAL: " << legal << ", " << legal / sample << std::endl;
-		illegal = 0; legal = 0;
-	}
+	std::cout << lol.isLegal() << std::endl;
+
+
+	//lol.outputLegalMoves();
+	board b;
+	b.print();
+
+	b.movePiece(lol);
+	b.print();
+
+	std::vector<board::move> kek;
+	lol.returnLegal(kek, piece::b_quee, "d4");
+	for (auto nask = kek.begin(); nask != kek.end(); nask++)
+		std::cout << *nask << std::endl;
+
 	std::cin.get();
     return 0;
 }

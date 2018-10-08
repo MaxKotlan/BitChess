@@ -26,6 +26,7 @@ public:
 
 	void addPiece(piece p, coordinate c);
 	void movePiece(coordinate c, coordinate d);
+	void movePiece(move m);
 	void removePiece(coordinate c);
 	void promotePiece(piece p, coordinate c);
 

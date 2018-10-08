@@ -8,8 +8,10 @@ set(SOURCE_FILES main.cpp test-board.cpp tests.h test-coordinate.cpp test-move.c
 
 include_directories(${BITCHESS_INCLUDE_DIR})
 
-add_executable(test_runner ${SOURCE_FILES})
-target_link_libraries(test_runner bitchess)
+find_package(Threads)
+
+add_executable(test_runner ${SOURCE_FILES} )
+target_link_libraries(test_runner bitchess ${CMAKE_THREAD_LIBS_INIT})
 
 install(TARGETS test_runner DESTINATION bin)
 
