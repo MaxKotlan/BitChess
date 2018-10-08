@@ -9,7 +9,7 @@ class board::move {
 public:
 	move(piece p, coordinate from, coordinate to);
 
-	piece getPiece() const { return piece(_data % 16); };
+	piece getPiece() const { return piece((_data >> 6)% 16); };
 	coordinate getFrom() const;
 	coordinate getTo() const;
 	uint16_t getRaw() {return _data;};

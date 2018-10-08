@@ -9,7 +9,7 @@
 
 int main(int argc, const char *argv[]) {
 	
-	board::move lol(piece::w_pawn, "a2", "d5");
+	board::move lol(piece::w_pawn, "a2", "a4");
 
 	lol.generateValidMoves();
 	

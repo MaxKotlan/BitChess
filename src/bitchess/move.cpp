@@ -12,18 +12,18 @@ std::vector<board::move> board::move::_legalmoves_sorted;
 
 
 board::move::move(piece p, coordinate from, coordinate to) : _data(0) {
-	_data += uint16_t(p);
-	_data += (uint16_t(from) << 4);
-	_data += (uint16_t(to) << 10);
+	_data += uint16_t(p) << 6;
+	_data += (uint16_t(from) << 10);
+	_data += (uint16_t(to));
 };
 
 
 board::coordinate board::move::getFrom() const{ 
-	return ((_data >> 4) % 64); 
+	return ((_data >> 10) % 64); 
 };
 
 board::coordinate board::move::getTo() const{ 
-	return ((_data >> 10) % 64); 
+	return ((_data) % 64); 
 };
 
 std::ostream& operator<< (std::ostream& stream, const board::move& out) {
@@ -65,6 +65,7 @@ void board::move::generateValidMoves() {
 
 void board::move::outputLegalMoves() {
 	auto ns = _legalmoves.begin();
+	
 	for (auto it = _legalmoves_sorted.begin(); it != _legalmoves_sorted.end(); it++) {
 		std::cout << *it << " | " << *ns << std::endl;
 		ns++;
