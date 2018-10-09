@@ -9,7 +9,7 @@
 
 int main(int argc, const char *argv[]) {
 	
-	board::move lol(piece::w_pawn, "a2", "a4");
+	board::move lol(piece::w_pawn, "d2", "d4");
 
 	lol.generateValidMoves();
 	
@@ -24,11 +24,11 @@ int main(int argc, const char *argv[]) {
 
 	b.movePiece(lol);
 	b.print();
+	
+	//lol.visualizeLegalMoves();
 
-	std::vector<board::move> kek;
-	lol.returnLegal(kek, piece::b_quee, "d4");
-	for (auto nask = kek.begin(); nask != kek.end(); nask++)
-		std::cout << *nask << std::endl;
+	b.generateMoves();
+	b.printCoordinateMap();
 
 	std::cin.get();
     return 0;

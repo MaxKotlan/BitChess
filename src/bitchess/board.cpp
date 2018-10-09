@@ -30,6 +30,16 @@ void board::movePiece(board::move m) {
 	removePiece(m.getFrom());
 }
 
+void board::generateMoves() {
+	std::vector<board::move> kek;
+	board::move m(piece::w_pawn, "a2", "a3");
+	m.returnLegal(kek, piece::w_pawn, "d4");
+	for (auto mv = kek.begin(); mv != kek.end(); mv++) {
+		if ((mv->getTo() - mv->getFrom())%7 == 0)
+			std::cout << *mv << std::endl;
+	}
+}
+
 
 void board::removePiece(coordinate c) {
 	_row[c.getRow()] -= uint32_t(getPiece(c)) << c.getCol() * piece::code_bits;
@@ -68,6 +78,18 @@ void board::printUTF() {
 						)
 				)
 				<< "]";
+		}
+		std::cout << std::endl;
+	}
+}
+
+void board::printCoordinateMap() {
+	for (board::row r = 7; r >= 0; r--) {
+		for (board::col c = 0; c < 8; c++) {
+			std::cout << std::dec << "[";
+			if (r * 8 + c < 10)
+				std::cout << " ";
+			std::cout << (r) * 8 + c << "]";
 		}
 		std::cout << std::endl;
 	}
