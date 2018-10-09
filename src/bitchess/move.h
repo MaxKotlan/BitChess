@@ -32,6 +32,10 @@ public:
 	friend bool operator <(board::move m, board::move g);
 	friend bool operator >(board::move m, board::move g);
 
+	uint8_t distance();
+
+	bool isDiagnal();
+
 	void returnLegal(std::vector<move>& mov, piece p, coordinate c);
 
 	protected:

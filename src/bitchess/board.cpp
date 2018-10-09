@@ -33,10 +33,12 @@ void board::movePiece(board::move m) {
 void board::generateMoves() {
 	std::vector<board::move> kek;
 	board::move m(piece::w_pawn, "a2", "a3");
-	m.returnLegal(kek, piece::w_pawn, "d4");
+	m.returnLegal(kek, piece::w_bish, "d4");
 	for (auto mv = kek.begin(); mv != kek.end(); mv++) {
-		if ((mv->getTo() - mv->getFrom())%7 == 0)
-			std::cout << *mv << std::endl;
+		//if (mv->isDiagnal())
+		//	if (uint8_t(getPiece(mv->getTo())) < 7)
+		//		continue;
+		std::cout << *mv << std::endl;
 	}
 }
 

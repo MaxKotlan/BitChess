@@ -131,6 +131,18 @@ void board::move::coordinatePattern(piece p, coordinate c, int corddelta, int ro
 	}
 }
 
+bool board::move::isDiagnal() {
+	return (distance() % 7 == 0 | distance() % 9 == 0);
+}
+
+
+uint8_t board::move::distance() {
+	coordinate from = getFrom();
+	coordinate to = getTo();
+	if (getFrom() > getTo()) return getFrom() - getTo();
+	else return getTo() - getFrom();
+}
+
 void board::move::returnLegal(std::vector<board::move>& mov, piece p, board::coordinate c){
 	for (auto it = _legalmoves.begin(); it != _legalmoves.end(); it++)
 		if (it->getFrom() == c && uint8_t(it->getPiece()) == uint8_t(p))
