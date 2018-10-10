@@ -30,12 +30,15 @@ public:
 	void removePiece(coordinate c);
 	void promotePiece(piece p, coordinate c);
 
+	void generateMoves();
+
 	void printRaw();
 	void printUTF();
 
 	void clear();
 	void random();
 	void print();
+	void printCoordinateMap();
 
 	bool operator == (const board& rhs);
 	bool operator != (const board& rhs);
