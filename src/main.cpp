@@ -27,6 +27,8 @@ int main(int argc, const char *argv[]) {
 	
 	//lol.visualizeLegalMoves();
 
+	srand(time(nullptr));
+
 	b.generateMoves();
 	b.printCoordinateMap();
 

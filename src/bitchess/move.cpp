@@ -131,8 +131,9 @@ void board::move::coordinatePattern(piece p, coordinate c, int corddelta, int ro
 	}
 }
 
+/*Needs improvement*/
 bool board::move::isDiagnal() {
-	return (distance() % 7 == 0 | distance() % 9 == 0);
+	return (distance()%7 == 0 || distance()%9 == 0);
 }
 
 
@@ -143,10 +144,49 @@ uint8_t board::move::distance() {
 	else return getTo() - getFrom();
 }
 
+std::vector<board::move>::iterator ub(std::vector<board::move>::iterator first, std::vector<board::move>::iterator last, board::move val)
+{
+	std::vector<board::move>::iterator it;
+	iterator_traits<std::vector<board::move>::iterator>::difference_type count, step;
+	count = std::distance(first, last);
+	while (count>0)
+	{
+		it = first; step = count / 2; std::advance(it, step);
+		if (!((val.getRaw() >> 6)<(it->getRaw() >> 6)))                // or: if (!comp(val,*it)), for version (2)
+		{
+			first = ++it; count -= step + 1;
+		}
+		else count = step;
+	}
+	return first;
+}
+
+std::vector<board::move>::iterator lb(std::vector<board::move>::iterator first, std::vector<board::move>::iterator last, board::move val)
+{
+	std::vector<board::move>::iterator it;
+	iterator_traits<std::vector<board::move>::iterator>::difference_type count, step;
+	count = distance(first, last);
+	while (count>0)
+	{
+		it = first; step = count / 2; advance(it, step);
+		if ((it->getRaw() >> 6) < (val.getRaw() >> 6)) {                 // or: if (comp(*it,val)), for version (2)
+			first = ++it;
+			count -= step + 1;
+		}
+		else count = step;
+	}
+	return first;
+}
+
 void board::move::returnLegal(std::vector<board::move>& mov, piece p, board::coordinate c){
-	for (auto it = _legalmoves.begin(); it != _legalmoves.end(); it++)
-		if (it->getFrom() == c && uint8_t(it->getPiece()) == uint8_t(p))
-			mov.push_back(board::move(p, c, it->getTo()));
+		move fer(p, c, "a1");
+		auto beg = lb(_legalmoves_sorted.begin(), _legalmoves_sorted.end(), fer);
+		auto end = ub(beg, _legalmoves_sorted.end(), fer);
+		for (auto it = beg; it != end; it++) {
+			mov.push_back(*it);
+		}
+	//	if (it->getFrom() == c && uint8_t(it->getPiece()) == uint8_t(p))
+	//		mov.push_back(board::move(p, c, it->getTo()));
 }
 
 
