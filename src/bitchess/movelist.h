@@ -28,7 +28,8 @@ class movelist {
 
 		void print();
 		int listSize();
-		void getLegalMovesIndex(piece p, board::coordinate from, uint8_t d);
+		std::vector<movenode>::iterator getLegalMovesIndex(piece p, board::coordinate from, uint8_t d);
+		std::vector<movenode>::iterator notfound;
 	protected:
 	/*Add legal moves to list for each type of piece*/
 	void gen_w_pawn_moves(board::coordinate c);

@@ -22,12 +22,19 @@ int main(int argc, const char *argv[]) {
 
 	srand(time(nullptr));
 	
+	/*
 	movelist k = movelist::getInstance();
 	k.print();
 	for (int i = 0; i < 8; i++) {
-		k.getLegalMovesIndex(piece::w_quee, "d4", i);
-	}
-	std::cout << "LISTSIZE: " << std::dec << k.listSize() << std::endl;
+		auto start = k.getLegalMovesIndex(piece::w_quee, "d4", i)->range;
+		for (auto it = start.begin(); it != start.end(); it++) {
+			std::cout << *it << std::endl;
+		}
+
+	} */
+
+	b.generateMoves(0);
+
 
 	b.printCoordinateMap();
 

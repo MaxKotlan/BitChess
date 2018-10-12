@@ -27,15 +27,15 @@ movelist::movelist() {
 		}
 	}
 	std::sort(_legalmoves.begin(), _legalmoves.end()); /*can probably remove this later once fully develop piece class, and insert in proper order*/
+	notfound = _legalmoves.end();
 }
 
-void movelist::getLegalMovesIndex(piece p, board::coordinate from, uint8_t d) {
+std::vector<movenode>::iterator movelist::getLegalMovesIndex(piece p, board::coordinate from, uint8_t d) {
 	uint16_t header = 0; header += d + (uint16_t(p) << 3) + (uint16_t(from) << 7);
-	std::cout << std::hex << header << std::endl;
-	auto startin = std::lower_bound(_legalmoves.begin(), _legalmoves.end(), header);
-	for (auto it = startin->range.begin(); it != startin->range.end(); it++){
-		std::cout << it->getHeader() << *it << std::endl;
-	}
+	if (binary_search(_legalmoves.begin(), _legalmoves.end(), header))
+		return notfound;
+	else 
+		return std::lower_bound(_legalmoves.begin(), _legalmoves.end(), header);
 };
 
 int movelist::listSize() {
@@ -212,6 +212,18 @@ bool operator >(movenode left, uint16_t right)
 {
 	return left.move_header > right;
 }
+
+
+bool operator <(uint16_t left, movenode right)
+{
+	return left < right.move_header;
+}
+
+bool operator >(uint16_t left, movenode right)
+{
+	return left > right.move_header;
+}
+
 
 
 

@@ -32,44 +32,18 @@ void board::movePiece(board::move m) {
 }
 
 void board::generateMoves(int co) {
-	std::vector<board::move> kek;
-
-	board::move m(piece::w_pawn, "a2", "a3");
-	//returnLegal(kek, piece::w_bish, "d4");
-	//for (auto i = 0; i < 64; i++) {
-	//	m.returnLegal(kek, getPiece(i), i);
-	//}
-	//int numpei = 0;
-	//for (int i = 0; i < 63; i++)
-	//	numpei += uint8_t(getPiece(i));
-	//board *next = new board(*this);
-
-	//for (auto mv = kek.begin(); mv != kek.end(); mv++) {
-		//std::cout << *mv << " " << (mv->isDiagnal() ? "true " : "false") <<  " " << std::dec<< (int)mv->distance() << std::endl;
-	//if (kek.size() > 0 &&  numpei > 0xC) {
-	//	move rm = kek[rand() % kek.size()];
-		//while (getPiece(rm.getTo()) != piece::empty) {
-		//	rm = kek[rand() % kek.size()];
-		//}
-	//	if (uint8_t(getPiece(rm.getTo())) != piece::empty) {
-	//		if (uint8_t(getPiece(rm.getTo())) >= 7 && rm.getFrom() < 7 ||
-	//			uint8_t(getPiece(rm.getTo())) < 7 && rm.getFrom() >= 7
-		//		) {
-		//		next->removePiece(rm.getTo());
-		//	}
-	//	}
-	//	else {
-	//		kek.empty();
-	//		next->movePiece(rm);
-	//	}
-		//std::cout << "---------------------------------------" << std::endl;
-		//print();
-		//next->generateMoves(co+1);
-	//	delete next;
-	//}
-	//}
-	std::cout << co << ", " << kek.size() << std::endl;
-
+	
+	movelist m = movelist::getInstance();
+	for (uint8_t i = 0; i < 64; i++) {
+		for (int dir = 0; dir < 8; dir++) {
+			auto legal_moves = m.getLegalMovesIndex(getPiece(i), i, dir);
+			if (legal_moves != m.notfound) {
+				for (auto it = legal_moves->range.begin(); it != legal_moves->range.end() && getPiece(it->getTo()) == piece::empty; it++) {
+					std::cout << *it << std::endl;
+				}
+			}
+		}
+	}
 }
 
 
