@@ -30,7 +30,7 @@ public:
 	void removePiece(coordinate c);
 	void promotePiece(piece p, coordinate c);
 
-	void generateMoves();
+	void generateMoves(int co);
 
 	void printRaw();
 	void printUTF();

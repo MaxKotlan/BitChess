@@ -31,37 +31,44 @@ void board::movePiece(board::move m) {
 	removePiece(m.getFrom());
 }
 
-void board::generateMoves() {
+void board::generateMoves(int co) {
 	std::vector<board::move> kek;
 
 	board::move m(piece::w_pawn, "a2", "a3");
-	for (auto i = 0; i < 64; i++) {
-		m.returnLegal(kek, getPiece(i), i);
-	}
+	//returnLegal(kek, piece::w_bish, "d4");
+	//for (auto i = 0; i < 64; i++) {
+	//	m.returnLegal(kek, getPiece(i), i);
+	//}
+	//int numpei = 0;
+	//for (int i = 0; i < 63; i++)
+	//	numpei += uint8_t(getPiece(i));
+	//board *next = new board(*this);
+
 	//for (auto mv = kek.begin(); mv != kek.end(); mv++) {
 		//std::cout << *mv << " " << (mv->isDiagnal() ? "true " : "false") <<  " " << std::dec<< (int)mv->distance() << std::endl;
-	if (kek.size() > 0) {
-		move rm = kek[rand() % kek.size()];
+	//if (kek.size() > 0 &&  numpei > 0xC) {
+	//	move rm = kek[rand() % kek.size()];
 		//while (getPiece(rm.getTo()) != piece::empty) {
 		//	rm = kek[rand() % kek.size()];
 		//}
-		if (uint8_t(getPiece(rm.getTo())) != piece::empty) {
-			if (uint8_t(getPiece(rm.getTo())) >= 7 && rm.getFrom() < 7 ||
-				uint8_t(getPiece(rm.getTo())) < 7 && rm.getFrom() >= 7
-				) {
-				removePiece(rm.getTo());
-			}
-		}
-		else {
-			kek.empty();
-			movePiece(rm);
-		}
-		std::cout << "---------------------------------------" << std::endl;
-		print();
-		generateMoves();
-	}
+	//	if (uint8_t(getPiece(rm.getTo())) != piece::empty) {
+	//		if (uint8_t(getPiece(rm.getTo())) >= 7 && rm.getFrom() < 7 ||
+	//			uint8_t(getPiece(rm.getTo())) < 7 && rm.getFrom() >= 7
+		//		) {
+		//		next->removePiece(rm.getTo());
+		//	}
+	//	}
+	//	else {
+	//		kek.empty();
+	//		next->movePiece(rm);
+	//	}
+		//std::cout << "---------------------------------------" << std::endl;
+		//print();
+		//next->generateMoves(co+1);
+	//	delete next;
 	//}
-	std::cout << kek.size() << std::endl;
+	//}
+	std::cout << co << ", " << kek.size() << std::endl;
 
 }
 

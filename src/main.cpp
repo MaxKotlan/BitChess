@@ -11,13 +11,6 @@ int main(int argc, const char *argv[]) {
 	
 	board::move lol(piece::w_pawn, "d2", "d4");
 
-	lol.generateValidMoves();
-	
-	//lol.outputLegalMoves();
-
-	std::cout << lol.isLegal() << std::endl;
-
-
 	//lol.outputLegalMoves();
 	board b;
 	b.print();
@@ -28,8 +21,14 @@ int main(int argc, const char *argv[]) {
 	//lol.visualizeLegalMoves();
 
 	srand(time(nullptr));
+	
+	movelist k = movelist::getInstance();
+	k.print();
+	for (int i = 0; i < 8; i++) {
+		k.getLegalMovesIndex(piece::w_quee, "d4", i);
+	}
+	std::cout << "LISTSIZE: " << std::dec << k.listSize() << std::endl;
 
-	b.generateMoves();
 	b.printCoordinateMap();
 
 	std::cin.get();
